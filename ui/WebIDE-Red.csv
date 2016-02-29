@@ -1,0 +1,25 @@
+id	en-US (English)	fr-FR (Français)	zh-CHS (简中)	zh-CHT (繁中)
+btn_save	save	sauver	储存	儲存
+btn_foldAll	fold all	plier tout	全摺叠	全摺疊
+btn_unfoldAll	unfold all	déplier tout	全展开	全展開
+lbl_UseSoftTabs	Soft Tab	Tabulations	软Tab	軟Tab
+lbl_ShowInvisibles	Show Invisibles	Révéler espaces	所有字元	所有字元
+lbl_red_version	version info	info version	版本信息	版本訊息
+lbl_debug_interpret	contain full debug info	info de debuggage	包含全部调试信息	包含全部偵錯訊息
+lbl_needs_view	module view	module view	引用view	引用view
+btn_upgrade_red	upgrade Red (interpreter and compiler)	Mise à jour Red (interpreteur and compilateur)	升级Red (直译器与编译器)	升級Red (直譯器與編譯器)
+btn_upgrade_red_manual	ready for manual upgrade	Mise à jour manuelle	准备手动升级Red	準備手動升級Red
+lbl_clear_front_log	clear front log	Nettoyer les logs	清空log	清空log
+lbl_close_front_interpret	close front interpret	fermer l'interpreteur frontal	关闭前一次直译器	關閉前一次直譯器
+btn_interpret	interpret (by red-console)	interpréter (via red-console)	直译 (用red-console)	直譯 (用red-console)
+lbl_debug_mode	debug mode	mode debug	调试版	偵錯版
+lbl_run	then run	puis lancer	然后执行	然後執行
+btn_compile	compile	compiler	编译	編譯
+msg_need_red	Can not find Red source code, click "upgrade Red"	Code source Red introuvable, clicker sur "Mise à jour"	找不到Red源代码, 点击"升级Red"	找不到Red程式碼, 點選 "升級Red"
+msg_ask_upgrade_red	If auto upgrade fail, try manual upgrade\r\n(IE11, Safari should try auto upgrade)\r\n\r\nauto upgrade: click "Ok"\r\nmanual upgrade: click "Cancel"\r\n(click "x": give up this operation)	Si la mise à jour auto échoue, essayez la mise à jour manuelle\r\n(IE11, Safari passez par la mise à jour auto)\r\n\r\nMise à jour auto: cliquez "Ok"\r\nMise à jour manuelle: cliquez "Cancel"\r\n(cliquez "x": abandon)	如果自动升级失败，可尝试手动升级\r\n(IE11，Safari浏览器应该先尝试自动升级)\r\n\r\n自动升级: 点击"確定"\r\n手动升级: 点击"取消"\r\n(点击"x": 放弃本次操作)	如果自動升級失敗，可嘗試手動升級\r\n(IE11, Safari瀏覽器應該先嘗試自動升級)\r\n\r\n自動升級: 點選"確定"\r\n手動升級: 點選"取消"\r\n(點選"x": 放棄本次操作)
+msg_ask_upgrade_red_manual	decompress the folder(like red-red-1234abc) in zip to path\r\nthen click	decompresse le dossier (ex: red-red-1234abc) zip vers chemin\r\npuis cliquez	解压zip内的文件夹(类似red-red-1234abc)到此路径后\r\n再点击	解壓zip內的資料夾(類似red-red-1234abc)到此路徑後\r\n再點選
+msg_downloading	download...	téléchargement…	下载...	下載...
+msg_unknown_size	(unknown size)	(taille inconnue)	(未知大小)	(未知大小)
+msg_unzipping	unzip...	unziper…	解压...	解壓...
+msg_compiling	compile...	compiler…	编译...	編譯...
+msg_need_restart	Need restart WebIDE	Need restart WebIDE	需重新启动WebIDE	需重新啟動WebIDE

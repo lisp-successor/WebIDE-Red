@@ -1,0 +1,44 @@
+#fakeSelect {
+    user-select: none;
+    -webkit-user-select: none
+}
+#selectBox {
+    width: calc(200px - 4px);
+    border: 1px solid silver;
+    padding: 2px;
+    cursor: default;
+    font: 13px Arial, sans-serif;
+    position: relative;
+}
+#selectBox:hover {
+    border: 1px solid gray;
+}
+#selectBox::after {
+    position: absolute;
+    content: "▼";
+    font-size: .8em;
+    right: 5px;
+    top: 5px;
+}
+#selectOptionsBox {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    border: 1px solid silver;
+    border-top: none;
+    overflow: auto;
+    height: 150px;
+    cursor: default;
+    font: 13px Arial, sans-serif;
+}
+#selectOptionsBox li {
+    padding: 2px;
+}
+#selectOptionsBox li:hover {
+    background-color: gainsboro;
+}
+.selectedOption {
+    color: white;
+    background-color: blue;
+}
