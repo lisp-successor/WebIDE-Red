@@ -201,9 +201,9 @@ webide: make object! [
     webide-config-obj: do webide-config-file
     work-dir: copy script-dir
     html-dir: clean-path append copy script-dir %../ui/
-    unless probe exists? rejoin [html-dir %WebIDE-Red.html][
-        write/binary rejoin [html-dir %WebIDE-Red.html] read/binary rejoin [html-dir %WebIDE-Red.html_]
-        delete rejoin [html-dir %WebIDE-Red.html_]
+    unless exists? rejoin [html-dir %WebIDE-Red.html][
+        write/binary rejoin [html-dir %WebIDE-Red.html] read/binary rejoin [html-dir %WebIDE-Red_.html]
+        delete rejoin [html-dir %WebIDE-Red_.html]
     ]
     os-id: system/version/4
     if os-id = 3 [
