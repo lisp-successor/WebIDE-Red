@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WebIDE For Red</title>
+    <style>
+        html, body {height:98%;}
+        .comments {width:100%; height:100%; resize:none; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
+        .select_file {height:100%; width:100%; }
+        .spanButton { border:1px solid #0d3c6b; margin:4px; cursor: pointer; }
+    </style>
+    <link  href="./WebIDE/split/split.css" rel="stylesheet"/>
+    <link  href="./WebIDE/fake-select/fake-select.css" rel="stylesheet"/>
+    <style type="text/css">
+        body {position: relative;}
+        #editor { 
+            margin: 0;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-width:500px;
+            min-height:500px;
+        }
+        #server_push { 
+            margin: 0;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="./WebIDE/loadjs/loadjs.min.js"></script>
+    <script src="./WebIDE-Red.js"></script>
+</head>
+<body>
+<div class="border1">
+    <div id="first_time">
+        <select id="select_ui_language0" size="1"><option value="???">???</option></select>
+    </div>
+    <div id="after_first_time" class="border1" style="visibility:hidden">
+        <div id="toolbar" class="split split-vertical">
+            <div id="editor_tool" class="split split-horizontal">
+                <select id="select_ui_language" size="1"></select>
+                <select id="theme" size="1">
+                    <optgroup label="Bright"><option value="ace/theme/chrome">Chrome</option><option value="ace/theme/clouds">Clouds</option><option value="ace/theme/crimson_editor">Crimson Editor</option><option value="ace/theme/dawn">Dawn</option><option value="ace/theme/dreamweaver">Dreamweaver</option><option value="ace/theme/eclipse">Eclipse</option><option value="ace/theme/github">GitHub</option><option value="ace/theme/iplastic">IPlastic</option><option value="ace/theme/solarized_light">Solarized Light</option><option value="ace/theme/textmate">TextMate</option><option value="ace/theme/tomorrow">Tomorrow</option><option value="ace/theme/xcode">XCode</option><option value="ace/theme/kuroir">Kuroir</option><option value="ace/theme/katzenmilch">KatzenMilch</option><option value="ace/theme/sqlserver">SQL Server</option></optgroup><optgroup label="Dark"><option value="ace/theme/ambiance">Ambiance</option><option value="ace/theme/chaos">Chaos</option><option value="ace/theme/clouds_midnight">Clouds Midnight</option><option value="ace/theme/cobalt">Cobalt</option><option value="ace/theme/idle_fingers">idle Fingers</option><option value="ace/theme/kr_theme">krTheme</option><option value="ace/theme/merbivore">Merbivore</option><option value="ace/theme/merbivore_soft">Merbivore Soft</option><option value="ace/theme/mono_industrial">Mono Industrial</option><option value="ace/theme/monokai">Monokai</option><option value="ace/theme/pastel_on_dark">Pastel on dark</option><option value="ace/theme/solarized_dark">Solarized Dark</option><option value="ace/theme/terminal">Terminal</option><option value="ace/theme/tomorrow_night">Tomorrow Night</option><option value="ace/theme/tomorrow_night_blue">Tomorrow Night Blue</option><option value="ace/theme/tomorrow_night_bright">Tomorrow Night Bright</option><option value="ace/theme/tomorrow_night_eighties">Tomorrow Night 80s</option><option value="ace/theme/twilight">Twilight</option><option value="ace/theme/vibrant_ink">Vibrant Ink</option></optgroup>
+                </select>
+                <br/>
+                <span id="btn_foldAll" class="spanButton">foldAll</span>
+                <span id="btn_unfoldAll" class="spanButton">unfoldAll</span>
+                <input type="checkbox" id="UseSoftTabs"/><label id="lbl_UseSoftTabs" for="UseSoftTabs">UseSoftTabs</label>
+                <input type="checkbox" id="ShowInvisibles"/><label id="lbl_ShowInvisibles" for="ShowInvisibles">ShowInvisibles</label>
+                <br/><br/>
+                <span id="btn_save" class="spanButton">save</span>
+            </div>
+            <div id="red_source" class="split split-horizontal">
+                <div id="github" class="split split-vertical">
+                    <a href='#' id='lbl_red_version' target='blank'>version info</a>
+                    <select id="select_red_dir" size="1"></select>
+                    <input type="checkbox" id="ckb_debug_interpret"/><label id="lbl_debug_interpret" for="ckb_debug_interpret">contain full debug info</label>
+                    <input type="checkbox" id="ckb_needs_view"/><label id="lbl_needs_view" for="ckb_needs_view" id="lbl_needs_view">needs view</label>
+                    <span id="btn_upgrade_red" class="spanButton">upgrade Red</span>
+                    <label id="lbl_progress" style="color:#FF0000;"></label>
+                </div>
+                <div id="red_tool" class="split split-vertical">
+                    <div id="interpret" class="split split-horizontal">
+                        <!--<input type="checkbox" id="ckb_clear_front_log"/><label id="lbl_clear_front_log" for="ckb_clear_front_log">clear front log</label>-->
+                        <input type="checkbox" id="ckb_close_front_interpret"/><label id="lbl_close_front_interpret" for="ckb_close_front_interpret">close front interpret</label>
+                        <span id="btn_interpret" class="spanButton">interpret (by red-console)</span>
+                    </div>
+                    <div id="compile" class="split split-horizontal">
+                        <select id="select_compile" size="1"></select>
+                        <input type="checkbox" id="ckb_debug_mode"/><label id="lbl_debug_mode" for="ckb_debug_mode">debug mode</label>
+                        <input type="checkbox" id="ckb_run"/><label id="lbl_run" for="ckb_run">then run</label>
+                        <span id="btn_compile" class="spanButton">compile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="content" class="split split-vertical">
+            <div id="tabs" class="split split-horizontal">
+                <div id="editor"></div>
+                <textarea id="txt_code" style="display:none"></textarea>
+            </div>
+            <div id="explorer" class="split split-horizontal">
+                <div id="div_work_dir"></div>
+                <div id="fakeSelect" style="width:100%;height:100%">
+                    <input id="selectBox" style="width:97%" placeholder=""/>
+                    <ul id="selectOptionsBox" style="width:99%;height:100%">
+                        <li style="background: #BBBB00;">Manni</li>
+                        <li>Manni - Haraldarmanni</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="red_interpret_result">
+            <div id="server_push"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
