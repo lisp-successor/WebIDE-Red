@@ -1,1 +1,5 @@
-
+[Desktop Entry]
+Name=WebIDE-Linux
+Exec=sh -c 'cd $(dirname %k);killall rebol-core-278-4-3;./core/linux/rebol-core-278-4-3 -i -v -s ./core/webide.reb;'
+Terminal=true
+Type=Application
