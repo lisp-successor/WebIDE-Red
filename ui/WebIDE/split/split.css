@@ -1,45 +1,30 @@
-.border1 {
-  height:100%;
-  border:1px;
-  solid #888;
-}
+  .split {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 
-.split {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 
-  overflow-y: auto;
-  overflow-x: hidden;
-}
+  .gutter {
+    background-color: #eee;
 
-.gutter {
-  background-color: #eee;
+    background-repeat: no-repeat;
+    background-position: 50%;
+  }
 
-  background-repeat: no-repeat;
-  background-position: 50%;
+  .gutter.gutter-horizontal {
+    background-image: url('./grips/vertical.png');
+    cursor: ew-resize;
+  }
 
-  cursor: move;
-  cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
-}
+  .gutter.gutter-vertical {
+    background-image: url('./grips/horizontal.png');
+    cursor: ns-resize;
+  }
 
-.gutter:active { 
-  cursor: grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
-}
-
-.gutter.gutter-horizontal {
-  background-image: url('grips/vertical.png');
-}
-
-.gutter.gutter-vertical {
-  background-image: url('grips/horizontal.png');
-}
-
-.split.split-horizontal, .gutter.gutter-horizontal {
-  height: 100%;
-  float: left;
-}
+  .split.split-horizontal, .gutter.gutter-horizontal {
+    height: 100%;
+    float: left;
+  }
