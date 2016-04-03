@@ -1,43 +1,26 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>WebIDE For Red</title>
     <style>
-        html, body {height:98%;}
-        .comments {width:100%; height:100%; resize:none; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
-        .select_file {height:100%; width:100%; }
+        html, body, .after_first_time {height: 100%;}
         .spanButton { border:1px solid #0d3c6b; margin:4px; cursor: pointer; }
+        #editor { margin: 0; width: 100%; height: 100%; min-width:500px; min-height:500px; }
     </style>
+    <link rel="stylesheet" href="./WebIDE/normalize.css/normalize.css"><!--correct height 100%-->
     <link  href="./WebIDE/split/split.css" rel="stylesheet"/>
     <link  href="./WebIDE/fake-select/fake-select.css" rel="stylesheet"/>
-    <style type="text/css">
-        body {position: relative;}
-        #editor { 
-            margin: 0;
-            position: relative;
-            width: 100%;
-            height: 100%;
-            min-width:500px;
-            min-height:500px;
-        }
-        #server_push { 
-            margin: 0;
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+    
     <script src="./WebIDE/loadjs/loadjs.min.js"></script>
     <script src="./WebIDE-Red.js"></script>
 </head>
 <body>
-<div class="border1">
     <div id="first_time">
         <select id="select_ui_language0" size="1"><option value="???">???</option></select>
     </div>
-    <div id="after_first_time" class="border1" style="visibility:hidden">
-        <div id="toolbar" class="split split-vertical">
+    <div id="after_first_time" class="after_first_time" style="visibility:hidden">
+        <div id="toolbar">
             <div id="editor_tool" class="split split-horizontal">
                 <select id="select_ui_language" size="1"></select>
                 <select id="theme" size="1">
@@ -52,7 +35,7 @@
                 <span id="btn_save" class="spanButton">save</span>
             </div>
             <div id="red_source" class="split split-horizontal">
-                <div id="github" class="split split-vertical">
+                <div id="github">
                     <a href='#' id='lbl_red_version' target='blank'>version info</a>
                     <select id="select_red_dir" size="1"></select>
                     <input type="checkbox" id="ckb_debug_interpret"/><label id="lbl_debug_interpret" for="ckb_debug_interpret">contain full debug info</label>
@@ -60,7 +43,7 @@
                     <span id="btn_upgrade_red" class="spanButton">upgrade Red</span>
                     <label id="lbl_progress" style="color:#FF0000;"></label>
                 </div>
-                <div id="red_tool" class="split split-vertical">
+                <div id="red_tool">
                     <div id="interpret" class="split split-horizontal">
                         <!--<input type="checkbox" id="ckb_clear_front_log"/><label id="lbl_clear_front_log" for="ckb_clear_front_log">clear front log</label>-->
                         <input type="checkbox" id="ckb_close_front_interpret"/><label id="lbl_close_front_interpret" for="ckb_close_front_interpret">close front interpret</label>
@@ -75,16 +58,16 @@
                 </div>
             </div>
         </div>
-        <div id="content" class="split split-vertical">
+        <div id="content">
             <div id="tabs" class="split split-horizontal">
                 <div id="editor"></div>
                 <textarea id="txt_code" style="display:none"></textarea>
             </div>
             <div id="explorer" class="split split-horizontal">
                 <div id="div_work_dir"></div>
-                <div id="fakeSelect" style="width:100%;height:100%">
-                    <input id="selectBox" style="width:97%" placeholder=""/>
-                    <ul id="selectOptionsBox" style="width:99%;height:100%">
+                <div id="fakeSelect" style="width:100%;height:90%">
+                    <input id="selectBox" style="width:100%" placeholder=""/>
+                    <ul id="selectOptionsBox" style="width:100%;height:100%">
                         <li style="background: #BBBB00;">Manni</li>
                         <li>Manni - Haraldarmanni</li>
                     </ul>
@@ -95,6 +78,5 @@
             <div id="server_push"></div>
         </div>
     </div>
-</div>
 </body>
 </html>
