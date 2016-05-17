@@ -625,6 +625,9 @@ print re
             case [
                 "target-os-default" = keys/1 [
                     reply: replace to string! copy os-dir "/" ""
+                    if "windows" = reply [
+                        reply: "msdos"
+                    ]
                 ]
                 "list-red-dir" = keys/1 [
                     reply: make string! 0
