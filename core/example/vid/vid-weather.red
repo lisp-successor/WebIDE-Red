@@ -31,8 +31,11 @@ face-main1: layout [
         group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
     ]
     return
+    button "open" [
+        fld-red-file/text: form request-file/title/file "find a red file" "*.red"
+    ]
     fld-red-file: field "" 370
-    btn-interpret: button "interpret red file" 100 [
+    btn-interpret: button "interpret red file" 120 [
         attempt [do load to-red-file fld-red-file/text]
     ]
     do [append self/text reduce [" (" either interpreted? ["interpret"]["complie"] ")"]]
@@ -99,7 +102,7 @@ fn-between-layout-and-view: function [][
     dlst-language/data: ["EN" Search "FR" Recherche "CN" 搜寻]
     dlst-language/selected: 1
     dlst-city-name-similar/data: make block! 0
-    fld-red-file/text: rejoin [self-dir "vid-calculator.red"]
+    ;fld-red-file/text: rejoin [self-dir "vid-calculator.red"]
 ]
 
 fn-between-layout-and-view
