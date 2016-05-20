@@ -1,39 +1,56 @@
 Red [
     title: "Weather"
-    Needs: 'View
+    Needs: 'View ;https://github.com/red/red/wiki/Red-View-Graphic-System
 ]
+self-dir: either interpreted?: system/state/interpreted? [either none? system/script/path [what-dir][copy/part to-red-file system/script/path index? find/last to-red-file system/script/path "/"]][copy/part to-red-file system/options/boot index? find/last to-red-file system/options/boot "/"]
 
-search-report: function [][
-    clear drop-list/data
-    url1: http://autocomplete.wunderground.com/aq?format=JSON&lang=zh&query=#city-name#
-    json1: read replace/all copy url1 "#city-name#" field-text/text
-    city-name: city-zmw: city-lat-lon: ""
-    pr1: [
-        any [
-            thru {"name": "} copy city-name    to {",}
-            thru {"zmw": "}  copy city-zmw     to {",}
-            thru {"ll": "}   copy city-lat-lon to {",}
-            (if city-lat-lon <> "-9999.000000 -9999.000000" [append drop-list/data reduce [city-name to issue! city-zmw]])
+face-main1: layout [
+    title "Red Weather"
+    dlst-language: drop-list 50 [
+        btn-search/text: form dlst-language/data/(dlst-language/selected * 2)
+        if (length? dlst-city-name-similar/data) > 0 [
+            fn-on-change-dlst-city-name-similar
         ]
     ]
-    parse json1 pr1
-    probe length? drop-list/data
-    drop-list/selected: 1
-    drop-list-on-change2 drop-list
+    group-box 2 [
+        below
+        fld-city-name: field "Beijing" 280
+        dlst-city-name-similar: drop-list 280 [
+            fn-on-change-dlst-city-name-similar
+        ]
+    ]
+    btn-search: button "Search" 70x50 [
+        fn-search-city-weather
+    ]
+    return
+    grp5: group-box 5 [
+        group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
+        group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
+        group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
+        group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
+        group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
+    ]
+    return
+    fld-red-file: field "" 370
+    btn-interpret: button "interpret red file" 100 [
+        attempt [do load to-red-file fld-red-file/text]
+    ]
+    do [append self/text reduce [" (" either interpreted? ["interpret"]["complie"] ")"]]
 ]
-blk-data: make block! 0
-drop-list-on-change2: function [face [object!] /extern blk-data][
-    clear blk-data
-    ;-- SVG http://wow.techbrood.com/fiddle/5854
-    url2base:  http://api.wunderground.com/api/2b0d6572c90d3e4a/lang:#lang#/forecast10day_v11/q/zmw:#zmw#.json?v=wuiapp
-    zmw: form face/data/(face/selected * 2)
-    lang: drop-list-lang/data/(drop-list-lang/selected * 2 - 1)
-    url2: replace/all copy url2base "#lang#" lang
-    url2: replace/all copy url2     "#zmw#"  zmw
-    probe url2
-    json2: read url2
-    probe length? json2
-    
+
+rejoin: function [blk][
+    append make string! 0 reduce blk
+]
+
+blk-wether-data: make block! 0
+fn-on-change-dlst-city-name-similar: function [][
+    clear blk-wether-data
+
+    zmw: form dlst-city-name-similar/data/(dlst-city-name-similar/selected * 2)
+    lang: dlst-language/data/(dlst-language/selected * 2 - 1)
+    url2: rejoin ["http://api.wunderground.com/api/2b0d6572c90d3e4a/lang:" lang "/forecast10day_v11/q/zmw:" zmw ".json?v=wuiapp"]
+    json2: read probe to url! url2
+
     monthname: day: high-celsius: low-celsius: conditions: icon: icon_url: ""
     pr2: [
         thru {"simpleforecast"}
@@ -45,44 +62,45 @@ drop-list-on-change2: function [face [object!] /extern blk-data][
             thru {"conditions":"}       copy conditions   to {",}
             thru {"icon":"}             copy icon         to {",}              
             thru {"icon_url":"}         copy icon_url     to {",}
-            (append/only blk-data reduce [day monthname high-celsius low-celsius conditions icon icon_url])
+            (append/only blk-wether-data reduce [day monthname high-celsius low-celsius conditions icon icon_url])
         ]
     ]
     parse json2 pr2
-    probe length? blk-data
+    print rejoin [{get } length? blk-wether-data { days weather of "} dlst-city-name-similar/data/(dlst-city-name-similar/selected * 2 - 1) {"}]
     repeat i length? grp5/pane [
-        grp5/pane/:i/text: append copy "" reduce [blk-data/:i/2 " " blk-data/:i/1]
-        img: load to url! blk-data/:i/7
+        grp5/pane/:i/text: rejoin [blk-wether-data/:i/2 " " blk-wether-data/:i/1]
+        img: load to url! blk-wether-data/:i/7
         grp5/pane/:i/pane/1/image: img
-        grp5/pane/:i/pane/2/text: blk-data/:i/5
-        grp5/pane/:i/pane/3/text: append copy "" reduce [blk-data/:i/4 "~" blk-data/:i/3]
+        grp5/pane/:i/pane/2/text: blk-wether-data/:i/5
+        grp5/pane/:i/pane/3/text: rejoin [blk-wether-data/:i/4 "~" blk-wether-data/:i/3 " C"]
     ]
 ]
-view [
-    title "Red Weather"
-    drop-list-lang: drop-list 50 [
-        btn-search/text: form face/data/(face/selected * 2)
-        search-report
-    ]
-    group-box 2 [
-        below
-        field-text: field "Beijing" 280
-        drop-list: drop-list 280 [
-            drop-list-on-change2 face
+
+fn-search-city-weather: function [][    
+    clear dlst-city-name-similar/data
+    url1: rejoin ["http://autocomplete.wunderground.com/aq?format=JSON&lang=zh&query=" fld-city-name/text]
+    json1: read probe to url! url1
+    city-name: city-zmw: city-lat-lon: ""
+    pr1: [
+        any [
+            thru {"name": "} copy city-name    to {",}
+            thru {"zmw": "}  copy city-zmw     to {",}
+            thru {"ll": "}   copy city-lat-lon to {",}
+            (if city-lat-lon <> "-9999.000000 -9999.000000" [append dlst-city-name-similar/data reduce [city-name to issue! city-zmw]])
         ]
     ]
-    btn-search: button "Search" 70x50 [search-report]
-    return
-    grp5: group-box 5 [
-        group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
-        group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
-        group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
-        group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
-        group-box "" [below origin 5x20 image 48x48 text "" 70x50 text "" 46x25]
-    ]
-    do [
-        drop-list-lang/data: ["EN" Search "FR" Recherche "CN" 搜寻]
-        drop-list-lang/selected: 1
-        drop-list/data: make block! 0
-    ]
+    parse json1 pr1
+    print rejoin ["similar city names: " (length? dlst-city-name-similar/data) / 2]
+    dlst-city-name-similar/selected: 1
+    fn-on-change-dlst-city-name-similar
 ]
+
+fn-between-layout-and-view: function [][
+    dlst-language/data: ["EN" Search "FR" Recherche "CN" 搜寻]
+    dlst-language/selected: 1
+    dlst-city-name-similar/data: make block! 0
+    fld-red-file/text: rejoin [self-dir "vid-calculator.red"]
+]
+
+fn-between-layout-and-view
+view face-main1
